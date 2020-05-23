@@ -2,7 +2,7 @@
   "name": "e-buy",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://adnansabbir.github.io/e-buy/",
+  "homepage": "https://adnansabbir.github.io/e-buy?v=1",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
