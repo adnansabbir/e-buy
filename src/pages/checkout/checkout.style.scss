@@ -16,7 +16,11 @@
 
     .header-block{
       text-transform: capitalize;
-      width: 23%;
+      width: 25%;
+
+      &:first-child{
+        width: 17%;
+      }
 
       &:last-child{
         width: 8%;
