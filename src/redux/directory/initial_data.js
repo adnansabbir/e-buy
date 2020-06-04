@@ -1,4 +1,4 @@
-export const sections = [
+export const directory_data = [
   {
     title: 'hats',
     imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
