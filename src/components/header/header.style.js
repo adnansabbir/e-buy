@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled from "styled-components";
 import {Link} from "react-router-dom";
 
 export const HeaderContainer = styled.div`
@@ -22,9 +22,7 @@ export const OptionsContainer = styled.div`
     align-items: center;
 `;
 
-const OptionContainerStyle = css`
-padding: 10px 15px;
-cursor-pointer
+export const OptionLink = styled(Link)`
+    padding: 10px 15px;
+    cursor: pointer
 `;
-export const OptionLink = styled(Link)`${OptionContainerStyle}`;
-export const OptionDiv = styled(Link)`${OptionContainerStyle}`;

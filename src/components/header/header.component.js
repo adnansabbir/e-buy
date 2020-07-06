@@ -1,5 +1,5 @@
 import React from "react";
-import {HeaderContainer, LogoContainer, OptionsContainer, OptionLink, OptionDiv} from './header.style';
+import {HeaderContainer, LogoContainer, OptionsContainer, OptionLink} from './header.style';
 import {ReactComponent as Logo} from "../../assets/crow.svg";
 import {auth} from "../../firebase/firebase.utils";
 import {connect} from "react-redux";
@@ -19,7 +19,7 @@ const Header = ({currentUser, cartDropDownHidden}) => (
             <OptionLink to={'/contact'}>Contact</OptionLink>
             {
                 currentUser ?
-                    <OptionDiv onClick={() => auth.signOut()}>Sign Out</OptionDiv>
+                    <OptionLink as='div' onClick={() => auth.signOut()}>Sign Out</OptionLink>
                     : <OptionLink to={'/signin'}>Sign In</OptionLink>
             }
             <CartIcon/>
