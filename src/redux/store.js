@@ -5,9 +5,10 @@ import {persistStore} from "redux-persist";
 
 const middlewares = [];
 
-if (process.env.NOVE_ENV === 'development') {
-    middlewares.push(logger);
-}
+middlewares.push(logger);
+// if (process.env.NOVE_ENV === 'development') {
+//     middlewares.push(logger);
+// }
 
 const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
