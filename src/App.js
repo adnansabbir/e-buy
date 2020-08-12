@@ -15,26 +15,6 @@ import CheckoutPage from "./pages/checkout/checkout.component";
 class App extends React.Component {
     firebaseAuthUnsubscription;
 
-    componentDidMount() {
-        const {setCurrentUser} = this.props;
-        this.firebaseAuthUnsubscription = auth.onAuthStateChanged(async userAuth => {
-            if (userAuth) {
-                const userRef = await createUserProfileDocument(userAuth);
-                userRef.onSnapshot(snapshot => {
-                    setCurrentUser({
-                        currentUser: {
-                            id: snapshot.id,
-                            ...snapshot.data()
-                        }
-                    });
-                });
-            } else {
-                setCurrentUser(userAuth);
-            }
-        });
-
-    }
-
     componentWillUnmount() {
         this.firebaseAuthUnsubscription();
     }
