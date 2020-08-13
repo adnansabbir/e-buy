@@ -1,5 +1,5 @@
 import {takeLatest, put} from 'redux-saga/effects'
-import USER_ACTION_TYPES from "./user.types";
+import UserActionType from "./user.types";
 import {auth, googleProvider, createUserProfileDocument, getCurrentUser} from "../../firebase/firebase.utils";
 import {all, call} from "redux-saga/effects";
 import {signInSuccess, signInFailure, signOutSuccess, signOutFailure} from "./user.actions";
@@ -25,7 +25,7 @@ function* signInWithGoogle() {
 
 function* onGoogleSignInStart() {
     yield takeLatest(
-        USER_ACTION_TYPES.GOOGLE_SIGN_IN_START,
+        UserActionType.GOOGLE_SIGN_IN_START,
         signInWithGoogle
     )
 }
@@ -41,7 +41,7 @@ function* signInWithEmail({payload: {email, password}}) {
 
 function* onEmailSignInStart() {
     yield takeLatest(
-        USER_ACTION_TYPES.EMAIL_SIGN_IN_START,
+        UserActionType.EMAIL_SIGN_IN_START,
         signInWithEmail
     )
 }
@@ -61,7 +61,7 @@ function* isUserAuthenticated() {
 
 function* onCheckUserSession() {
     yield takeLatest(
-        USER_ACTION_TYPES.CHECK_USER_SESSION,
+        UserActionType.CHECK_USER_SESSION,
         isUserAuthenticated
     )
 }
@@ -77,7 +77,7 @@ function* signOut() {
 
 function* onSignOutStart() {
     yield takeLatest(
-        USER_ACTION_TYPES.SIGN_OUT_START,
+        UserActionType.SIGN_OUT_START,
         signOut
     );
 }
