@@ -66,7 +66,7 @@ function* onCheckUserSession() {
     )
 }
 
-function* onSignOut() {
+function* signOut() {
     try {
         yield auth.signOut();
         yield put(signOutSuccess());
@@ -75,10 +75,10 @@ function* onSignOut() {
     }
 }
 
-function* signOutStart() {
+function* onSignOutStart() {
     yield takeLatest(
         USER_ACTION_TYPES.SIGN_OUT_START,
-        onSignOut
+        signOut
     );
 }
 
@@ -87,6 +87,6 @@ export default function* userSagas() {
         call(onGoogleSignInStart),
         call(onEmailSignInStart),
         call(onCheckUserSession),
-        call(signOutStart)
+        call(onSignOutStart)
     ])
 }
