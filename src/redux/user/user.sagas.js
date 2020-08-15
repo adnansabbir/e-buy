@@ -88,21 +88,25 @@ function* onSignOutStart() {
     );
 }
 
-function* signUp({payload: {email, password, ...rest}}) {
+function* signUp({payload: {email, password, ...additionalData}}) {
     try {
         const {user} = yield auth.createUserWithEmailAndPassword(email, password);
-        yield call(createUserProfileDocument, user, {...rest});
+        yield put(signUpSuccess({user: user, additionalData: {...additionalData}}))
     } catch (error) {
         yield put(signUpFailure(error))
     }
 }
 
-function* onSignUp() {
+function* onSignUpStart() {
     yield takeLatest(UserActionType.SIGN_UP_START, signUp);
 }
 
+function* signInAfterSignUp({payload: {user, additionalData}}) {
+    yield call(getSnapshotFromUserAuth, user, additionalData);
+}
+
 function* onSignUpSuccess() {
-    yield takeLatest(UserActionType.SIGN_UP_SUCCESS, isUserAuthenticated);
+    yield takeLatest(UserActionType.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 
 export default function* userSagas() {
@@ -111,7 +115,7 @@ export default function* userSagas() {
         call(onEmailSignInStart),
         call(onCheckUserSession),
         call(onSignOutStart),
-        call(onSignUp),
+        call(onSignUpStart),
         call(onSignUpSuccess)
     ])
 }
