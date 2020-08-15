@@ -1,73 +1,62 @@
-import React from "react";
+import React, {useState} from "react";
 import {connect} from "react-redux";
 import './sign-in.style.scss';
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 import {googleSignInStart, emailSignInStart} from "../../redux/user/user.actions";
 
-class SignIn extends React.Component {
-    constructor() {
-        super();
+const SignIn = ({googleSignInStart, emailSignInStart}) => {
 
-        this.state = {
-            email: '',
-            password: ''
-        }
-    }
+    const [userCredentials, setUserCredentials] = useState({email: '', password: ''});
 
-    handleSubmit = async (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const {emailSignInStart} = this.props;
-        const {email, password} = this.state;
-        emailSignInStart(email, password)
+        emailSignInStart(userCredentials)
     };
 
-    handleChange = event => {
+    const handleChange = event => {
         const {value, name} = event.target;
-        this.setState({[name]: value});
+        setUserCredentials({...userCredentials, [name]: value});
     };
 
-    render() {
-        const {googleSignInStart} = this.props;
-        return (
-            <div className="sign-in">
-                <h2>I already have an account</h2>
-                <span>Sign in with your email and password</span>
+    return (
+        <div className="sign-in">
+            <h2>I already have an account</h2>
+            <span>Sign in with your email and password</span>
 
-                <form onSubmit={this.handleSubmit}>
-                    <FormInput
-                        label='Email'
-                        type="email"
-                        name='email'
-                        value={this.state.email}
-                        handleChange={this.handleChange}
-                        required/>
-                    <FormInput
-                        label='Password'
-                        type="password"
-                        name='password'
-                        value={this.state.password}
-                        handleChange={this.handleChange}
-                        required/>
+            <form onSubmit={handleSubmit}>
+                <FormInput
+                    label='Email'
+                    type="email"
+                    name='email'
+                    value={userCredentials.email}
+                    handleChange={handleChange}
+                    required/>
+                <FormInput
+                    label='Password'
+                    type="password"
+                    name='password'
+                    value={userCredentials.password}
+                    handleChange={handleChange}
+                    required/>
 
-                    <div className="buttons">
-                        <CustomButton type="submit">Sign In</CustomButton>
-                        <CustomButton
-                            onClick={googleSignInStart}
-                            googleSignIn
-                            type='button'>
-                            Sign In With Google
-                        </CustomButton>
-                    </div>
-                </form>
-            </div>
-        )
-    }
-}
+                <div className="buttons">
+                    <CustomButton type="submit">Sign In</CustomButton>
+                    <CustomButton
+                        onClick={googleSignInStart}
+                        googleSignIn
+                        type='button'>
+                        Sign In With Google
+                    </CustomButton>
+                </div>
+            </form>
+        </div>
+    )
+};
 
 const mapDispatchToProps = dispatch => ({
     googleSignInStart: () => dispatch(googleSignInStart()),
-    emailSignInStart: (email, password) => dispatch(emailSignInStart({email, password}))
+    emailSignInStart: (userCredentials) => dispatch(emailSignInStart(userCredentials))
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);
