@@ -10,9 +10,9 @@ import {
     signUpSuccess
 } from "./user.actions";
 
-function* getSnapshotFromUserAuth(user) {
+function* getSnapshotFromUserAuth(user, additionalData) {
     try {
-        const userRef = yield call(createUserProfileDocument, user);
+        const userRef = yield call(createUserProfileDocument, user, additionalData);
         const userSnapshot = yield userRef.get();
         yield put(signInSuccess({id: userSnapshot.id, ...userSnapshot.data()}))
     } catch (error) {
